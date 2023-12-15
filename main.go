@@ -10,6 +10,9 @@ import (
 func main() {
 	e := echo.New()
 
+	// +--------------------+
+	// | User Facing Routes |
+	// +--------------------+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
@@ -35,6 +38,46 @@ func main() {
 		username := c.Param("username")
 		postId := c.Param("postId")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (username=%s, postId=%s)", c.Path(), username, postId))
+	})
+
+	// +-----------------------+
+	// | Service Facing Routes |
+	// +-----------------------+
+
+	e.POST("/api/signIn", func(c echo.Context) error {
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	})
+
+	e.POST("/api/signUp", func(c echo.Context) error {
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	})
+
+	e.POST("/api/signOut", func(c echo.Context) error {
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	})
+
+	e.POST("/api/post", func(c echo.Context) error {
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	})
+
+	e.POST("/api/post/:postId/reply", func(c echo.Context) error {
+		postId := c.Param("postId")
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
+	})
+
+	e.DELETE("/api/post/:postId", func(c echo.Context) error {
+		postId := c.Param("postId")
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
+	})
+
+	e.POST("/api/post/:postId/like", func(c echo.Context) error {
+		postId := c.Param("postId")
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
+	})
+
+	e.DELETE("/api/post/:postId/like", func(c echo.Context) error {
+		postId := c.Param("postId")
+		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
 
 	e.Logger.Fatal(e.Start(":8080"))
