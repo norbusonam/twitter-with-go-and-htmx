@@ -14,27 +14,45 @@ func main() {
 	// | User Facing Routes |
 	// +--------------------+
 	e.GET("/", func(c echo.Context) error {
+		// if user is logged in
+		//  redirect to /home
+		// else
+		//  render login/home page
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
 
 	e.GET("/home", func(c echo.Context) error {
+		// if user is logged in
+		//  render home page
+		// else
+		//  redirect to /
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
 
 	e.GET("/explore", func(c echo.Context) error {
+		// if user is logged in
+		//  render explore page
+		// else
+		//  redirect to /
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
 
 	e.GET("/bookmarks", func(c echo.Context) error {
+		// if user is logged in
+		//  render bookmarks page
+		// else
+		//  redirect to /
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
 
 	e.GET("/u/:username", func(c echo.Context) error {
+		// render user page
 		username := c.Param("username")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (username=%s)", c.Path(), username))
 	})
 
 	e.GET("/p/:id", func(c echo.Context) error {
+		// render post page
 		postId := c.Param("id")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
