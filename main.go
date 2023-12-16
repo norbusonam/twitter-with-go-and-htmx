@@ -59,23 +59,23 @@ func main() {
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 	})
 
-	e.POST("/api/post/:postId/reply", func(c echo.Context) error {
-		postId := c.Param("postId")
+	e.POST("/api/post/:id/reply", func(c echo.Context) error {
+		postId := c.Param("id")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
 
-	e.DELETE("/api/post/:postId", func(c echo.Context) error {
-		postId := c.Param("postId")
+	e.DELETE("/api/post/:id", func(c echo.Context) error {
+		postId := c.Param("id")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
 
-	e.POST("/api/post/:postId/like", func(c echo.Context) error {
-		postId := c.Param("postId")
+	e.POST("/api/post/:id/like", func(c echo.Context) error {
+		postId := c.Param("id")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
 
-	e.DELETE("/api/post/:postId/like", func(c echo.Context) error {
-		postId := c.Param("postId")
+	e.DELETE("/api/post/:id/like", func(c echo.Context) error {
+		postId := c.Param("id")
 		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
 	})
 
