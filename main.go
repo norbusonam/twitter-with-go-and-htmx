@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
@@ -18,7 +19,8 @@ func main() {
 		//  redirect to /home
 		// else
 		//  render login/home page
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+		hello("world").Render(context.Background(), c.Response().Writer)
+		return nil
 	})
 
 	e.GET("/home", func(c echo.Context) error {
