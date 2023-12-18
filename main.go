@@ -11,6 +11,11 @@ import (
 func main() {
 	e := echo.New()
 
+	// +--------------+
+	// | Static Files |
+	// +--------------+
+	e.Static("/static", "public")
+
 	// +--------------------+
 	// | User Facing Routes |
 	// +--------------------+
