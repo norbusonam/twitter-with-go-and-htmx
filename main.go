@@ -1,11 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/templates"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 		//  redirect to /home
 		// else
 		//  render login/home page
-		hello("world").Render(context.Background(), c.Response().Writer)
+		templates.Hello("world").Render(c.Request().Context(), c.Response().Writer)
 		return nil
 	})
 
