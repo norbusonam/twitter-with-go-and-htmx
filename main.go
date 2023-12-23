@@ -14,7 +14,7 @@ func main() {
 	// +--------------+
 	// | Static Files |
 	// +--------------+
-	e.Static("/static", "public")
+	e.Static("/", "public")
 
 	// +--------------------+
 	// | User Facing Routes |
