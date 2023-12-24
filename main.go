@@ -1,11 +1,8 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
 	"github.com/labstack/echo/v4"
-	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/templates"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/handlers"
 )
 
 func main() {
@@ -19,90 +16,25 @@ func main() {
 	// +--------------------+
 	// | User Facing Routes |
 	// +--------------------+
-	e.GET("/", func(c echo.Context) error {
-		// if user is logged in
-		//  redirect to /home
-		// else
-		//  render login/home page
-		templates.Hello("world").Render(c.Request().Context(), c.Response().Writer)
-		return nil
-	})
-
-	e.GET("/home", func(c echo.Context) error {
-		// if user is logged in
-		//  render home page
-		// else
-		//  redirect to /
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.GET("/explore", func(c echo.Context) error {
-		// if user is logged in
-		//  render explore page
-		// else
-		//  redirect to /
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.GET("/bookmarks", func(c echo.Context) error {
-		// if user is logged in
-		//  render bookmarks page
-		// else
-		//  redirect to /
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.GET("/u/:username", func(c echo.Context) error {
-		// render user page
-		username := c.Param("username")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (username=%s)", c.Path(), username))
-	})
-
-	e.GET("/p/:id", func(c echo.Context) error {
-		// render post page
-		postId := c.Param("id")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-	})
+	e.GET("/", handlers.Root)
+	e.GET("/home", handlers.HomePage)
+	e.GET("/u/:username", handlers.UserPage)
+	e.GET("/u/:username/likes", handlers.UserLikesPage)
+	e.GET("/u/:username/following", handlers.UserFollowingPage)
+	e.GET("/u/:username/followers", handlers.UserFollowersPage)
+	e.GET("/p/:id", handlers.PostPage)
 
 	// +-----------------------+
 	// | Service Facing Routes |
 	// +-----------------------+
-
-	e.POST("/api/signIn", func(c echo.Context) error {
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.POST("/api/signUp", func(c echo.Context) error {
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.POST("/api/signOut", func(c echo.Context) error {
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.POST("/api/post", func(c echo.Context) error {
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
-	})
-
-	e.POST("/api/post/:id/reply", func(c echo.Context) error {
-		postId := c.Param("id")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-	})
-
-	e.DELETE("/api/post/:id", func(c echo.Context) error {
-		postId := c.Param("id")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-	})
-
-	e.POST("/api/post/:id/like", func(c echo.Context) error {
-		postId := c.Param("id")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-	})
-
-	e.DELETE("/api/post/:id/like", func(c echo.Context) error {
-		postId := c.Param("id")
-		return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-	})
+	e.POST("/api/signin", handlers.SignIn)
+	e.POST("/api/signup", handlers.SignUp)
+	e.POST("/api/signout", handlers.SignOut)
+	e.POST("/api/post", handlers.CreatePost)
+	e.POST("/api/post/:id/reply", handlers.CreateReplyPost)
+	e.DELETE("/api/post/:id", handlers.DeletePost)
+	e.POST("/api/post/:id/like", handlers.LikePost)
+	e.DELETE("/api/post/:id/like", handlers.UnlikePost)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
