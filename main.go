@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
 	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/handlers"
 )
 
@@ -34,6 +35,11 @@ func main() {
 	e.DELETE("/api/post/:id", handlers.DeletePost)
 	e.POST("/api/post/:id/like", handlers.LikePost)
 	e.DELETE("/api/post/:id/like", handlers.UnlikePost)
+
+	// +---------------------+
+	// | Initialize Database |
+	// +---------------------+
+	db.Init("postgres://postgres:postgres@localhost:5432/twitter?sslmode=disable")
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
