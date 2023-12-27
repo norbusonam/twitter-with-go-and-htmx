@@ -17,11 +17,6 @@ func CreatePost(c echo.Context) error {
 	return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
 }
 
-func CreateReplyPost(c echo.Context) error {
-	postId := c.Param("id")
-	return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))
-}
-
 func DeletePost(c echo.Context) error {
 	postId := c.Param("id")
 	return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented (postId=%s)", c.Path(), postId))

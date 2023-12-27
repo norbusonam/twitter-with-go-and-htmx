@@ -31,7 +31,6 @@ func main() {
 	e.POST("/api/signup", handlers.SignUp)
 	e.POST("/api/signout", handlers.SignOut)
 	e.POST("/api/post", handlers.CreatePost)
-	e.POST("/api/post/:id/reply", handlers.CreateReplyPost)
 	e.DELETE("/api/post/:id", handlers.DeletePost)
 	e.POST("/api/post/:id/like", handlers.LikePost)
 	e.DELETE("/api/post/:id/like", handlers.UnlikePost)
