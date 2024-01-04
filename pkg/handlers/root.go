@@ -10,5 +10,5 @@ func Root(c echo.Context) error {
 	//  redirect to /home
 	// else
 	//  render login/home page
-	return templates.Hello("world").Render(c.Request().Context(), c.Response().Writer)
+	return templates.Landing().Render(c.Request().Context(), c.Response().Writer)
 }
