@@ -14,32 +14,39 @@ func SignIn(c echo.Context) error {
 	password := c.FormValue("password")
 	user, err := db.GetUserByUsername(username)
 	if err != nil {
+		fmt.Println("unable to find user")
+		// TODO: handle error properly
 		return err
 	}
 	if user.Password != password {
-		return fmt.Errorf("invalid password")
+		fmt.Println("wrong password")
+		// TODO: handle error properly
+		return fmt.Errorf("wrong password")
 	}
 	c.SetCookie(&http.Cookie{
 		Name:  "user_id",
 		Value: strconv.Itoa(user.ID),
 	})
-	return c.Redirect(http.StatusFound, "/home")
+	c.Response().Header().Set("HX-Location", "/home")
+	return nil
 }
 
 func SignUp(c echo.Context) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	password := c.FormValue("password")
-	fmt.Println(username, email, password)
 	user, err := db.CreateUser(username, email, password)
 	if err != nil {
+		fmt.Println("unable to create user")
+		// TODO: handle error properly
 		return err
 	}
 	c.SetCookie(&http.Cookie{
 		Name:  "user_id",
 		Value: strconv.Itoa(user.ID),
 	})
-	return c.Redirect(http.StatusFound, "/home")
+	c.Response().Header().Set("HX-Location", "/home")
+	return nil
 }
 
 func SignOut(c echo.Context) error {
