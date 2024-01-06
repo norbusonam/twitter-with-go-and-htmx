@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -51,5 +50,10 @@ func SignUp(c echo.Context) error {
 }
 
 func SignOut(c echo.Context) error {
-	return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	c.SetCookie(&http.Cookie{
+		Name:   "user_id",
+		MaxAge: -1,
+	})
+	c.Response().Header().Set("HX-Location", "/")
+	return nil
 }
