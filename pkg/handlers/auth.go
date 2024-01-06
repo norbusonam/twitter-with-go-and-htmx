@@ -15,13 +15,13 @@ func SignIn(c echo.Context) error {
 	password := c.FormValue("password")
 	user, err := db.GetUserByUsername(username)
 	if err != nil {
+		// TODO: figure out how to set status code without superfluous call warning
 		templates.AuthError("user not found").Render(c.Request().Context(), c.Response().Writer)
-		c.Response().WriteHeader(http.StatusNotFound)
 		return nil
 	}
 	if user.Password != password {
+		// TODO: figure out how to set status code without superfluous call warning
 		templates.AuthError("wrong password").Render(c.Request().Context(), c.Response().Writer)
-		c.Response().WriteHeader(http.StatusUnauthorized)
 		return nil
 	}
 	c.SetCookie(&http.Cookie{
@@ -38,8 +38,8 @@ func SignUp(c echo.Context) error {
 	password := c.FormValue("password")
 	user, err := db.CreateUser(username, email, password)
 	if err != nil {
+		// TODO: figure out how to set status code without superfluous call warning
 		templates.AuthError("unable to create user").Render(c.Request().Context(), c.Response().Writer)
-		c.Response().WriteHeader(http.StatusConflict)
 		return nil
 	}
 	c.SetCookie(&http.Cookie{
