@@ -7,18 +7,19 @@ templ Landing() {
 		<body>
 			<div id="auth-error"></div>
 			// sign in form
-			<form hx-post="/signin" hx-target="#auth-error" hx-swap="outerHTML">
+			<form hx-post="/signin" hx-target="#auth-error" hx-swap="outerHTML" hx-indicator="#loading">
 				<input type="text" name="username" placeholder="username"/>
 				<input type="password" name="password" placeholder="password"/>
 				<button type="submit">Sign in</button>
 			</form>
 			// sign up form
-			<form hx-post="/signup" hx-target="#auth-error" hx-swap="outerHTML">
+			<form hx-post="/signup" hx-target="#auth-error" hx-swap="outerHTML" hx-indicator="#loading">
 				<input type="text" name="username" placeholder="username"/>
 				<input type="email" name="email" placeholder="email"/>
 				<input type="password" name="password" placeholder="password"/>
 				<button type="submit">Sign up</button>
 			</form>
+			<div id="loading" class="htmx-indicator">Loading...</div>
 		</body>
 	</html>
 }
