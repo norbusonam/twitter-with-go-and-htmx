@@ -7,6 +7,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/templates"
 )
 
 func SignIn(c echo.Context) error {
@@ -14,14 +15,14 @@ func SignIn(c echo.Context) error {
 	password := c.FormValue("password")
 	user, err := db.GetUserByUsername(username)
 	if err != nil {
-		fmt.Println("unable to find user")
-		// TODO: handle error properly
-		return err
+		templates.AuthError("user not found").Render(c.Request().Context(), c.Response().Writer)
+		c.Response().WriteHeader(http.StatusNotFound)
+		return nil
 	}
 	if user.Password != password {
-		fmt.Println("wrong password")
-		// TODO: handle error properly
-		return fmt.Errorf("wrong password")
+		templates.AuthError("wrong password").Render(c.Request().Context(), c.Response().Writer)
+		c.Response().WriteHeader(http.StatusUnauthorized)
+		return nil
 	}
 	c.SetCookie(&http.Cookie{
 		Name:  "user_id",
@@ -37,9 +38,9 @@ func SignUp(c echo.Context) error {
 	password := c.FormValue("password")
 	user, err := db.CreateUser(username, email, password)
 	if err != nil {
-		fmt.Println("unable to create user")
-		// TODO: handle error properly
-		return err
+		templates.AuthError("unable to create user").Render(c.Request().Context(), c.Response().Writer)
+		c.Response().WriteHeader(http.StatusConflict)
+		return nil
 	}
 	c.SetCookie(&http.Cookie{
 		Name:  "user_id",
