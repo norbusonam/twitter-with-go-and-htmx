@@ -6,9 +6,8 @@ import (
 )
 
 func Root(c echo.Context) error {
-	// if user is logged in
-	//  redirect to /home
-	// else
-	//  render login/home page
+	if isUserAuthenticated(c.Cookies()) {
+		return c.Redirect(302, "/home")
+	}
 	return templates.Landing().Render(c.Request().Context(), c.Response().Writer)
 }
