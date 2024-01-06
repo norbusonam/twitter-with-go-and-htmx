@@ -33,9 +33,9 @@ func main() {
 	// +--------------+
 	e.Static("/", "public")
 
-	// +--------------------+
-	// | User Facing Routes |
-	// +--------------------+
+	// +-------------+
+	// | Page Routes |
+	// +-------------+
 	e.GET("/", handlers.Root)
 	e.GET("/home", handlers.HomePage)
 	e.GET("/u/:username", handlers.UserPage)
@@ -44,16 +44,16 @@ func main() {
 	e.GET("/u/:username/followers", handlers.UserFollowersPage)
 	e.GET("/p/:id", handlers.PostPage)
 
-	// +-----------------------+
-	// | Service Facing Routes |
-	// +-----------------------+
-	e.POST("/api/signin", handlers.SignIn)
-	e.POST("/api/signup", handlers.SignUp)
-	e.POST("/api/signout", handlers.SignOut)
-	e.POST("/api/post", handlers.CreatePost)
-	e.DELETE("/api/post/:id", handlers.DeletePost)
-	e.POST("/api/post/:id/like", handlers.LikePost)
-	e.DELETE("/api/post/:id/like", handlers.UnlikePost)
+	// +---------------+
+	// | Action Routes |
+	// +---------------+
+	e.POST("/signin", handlers.SignIn)
+	e.POST("/signup", handlers.SignUp)
+	e.POST("/signout", handlers.SignOut)
+	e.POST("/post", handlers.CreatePost)
+	e.DELETE("/post/:id", handlers.DeletePost)
+	e.POST("/post/:id/like", handlers.LikePost)
+	e.DELETE("/post/:id/like", handlers.UnlikePost)
 
 	// +---------------------+
 	// | Initialize Database |
