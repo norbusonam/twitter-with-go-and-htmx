@@ -6,8 +6,13 @@ import (
 )
 
 func HomePage(c echo.Context) error {
-	if !isUserAuthenticated(c.Cookies()) {
+	user, err := getAuthenticatedUser(c.Cookies())
+	if err != nil {
+		return err
+	}
+	if user == nil {
 		return c.Redirect(302, "/")
 	}
-	return templates.Home().Render(c.Request().Context(), c.Response().Writer)
+
+	return templates.Home(user).Render(c.Request().Context(), c.Response().Writer)
 }

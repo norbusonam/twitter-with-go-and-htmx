@@ -6,7 +6,11 @@ import (
 )
 
 func Root(c echo.Context) error {
-	if isUserAuthenticated(c.Cookies()) {
+	user, err := getAuthenticatedUser(c.Cookies())
+	if err != nil {
+		return err
+	}
+	if user != nil {
 		return c.Redirect(302, "/home")
 	}
 	return templates.Landing().Render(c.Request().Context(), c.Response().Writer)
