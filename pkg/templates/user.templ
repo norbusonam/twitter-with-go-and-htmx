@@ -2,13 +2,14 @@ package templates
 
 import "github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
 
-templ Home(authenticatedUser *db.User) {
+templ User(user *db.User, authenticatedUser *db.User) {
 	<!DOCTYPE html>
 	<html lang="en">
-		@head("Twitter / Home")
+		@head("Twitter / " + user.Username)
 		<body>
 			@nav(authenticatedUser)
-			<p>Home posts...</p>
+			<h1>{ user.Username }</h1>
+			<p>{ user.Username }'s posts...</p>
 		</body>
 	</html>
 }

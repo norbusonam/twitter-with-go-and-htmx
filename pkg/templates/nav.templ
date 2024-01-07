@@ -1,0 +1,17 @@
+package templates
+
+import "github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
+
+templ nav(authenticatedUser  *db.User) {
+	<nav hx-boost="true" class="flex flex-col">
+		<h1>Twitter</h1>
+		if authenticatedUser != nil {
+			<a href="/home">Home</a>
+			<a href={ templ.SafeURL("/u/" + authenticatedUser.Username) }>Profile</a>
+			<button hx-post="/signout" class="text-left">Sign Out</button>
+		} else {
+			<a href="/">Sign In</a>
+			<a href="/">Sign Up</a>
+		}
+	</nav>
+}
