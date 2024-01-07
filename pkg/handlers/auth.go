@@ -27,7 +27,8 @@ func SignIn(c echo.Context) error {
 		Name:  "user_id",
 		Value: strconv.Itoa(user.ID),
 	})
-	c.Response().Header().Set("HX-Location", "/home")
+	c.Response().Header().Set("HX-Refresh", "true")
+	c.Response().Header().Set("HX-Redirect", "/home")
 	return nil
 }
 
@@ -45,7 +46,8 @@ func SignUp(c echo.Context) error {
 		Name:  "user_id",
 		Value: strconv.Itoa(user.ID),
 	})
-	c.Response().Header().Set("HX-Location", "/home")
+	c.Response().Header().Set("HX-Refresh", "true")
+	c.Response().Header().Set("HX-Redirect", "/home")
 	return nil
 }
 
@@ -54,6 +56,7 @@ func SignOut(c echo.Context) error {
 		Name:   "user_id",
 		MaxAge: -1,
 	})
-	c.Response().Header().Set("HX-Location", "/")
+	c.Response().Header().Set("HX-Refresh", "true")
+	c.Response().Header().Set("HX-Redirect", "/")
 	return nil
 }
