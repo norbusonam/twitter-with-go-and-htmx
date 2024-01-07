@@ -50,3 +50,23 @@ func GetUserByUsername(username string) (*User, error) {
 	}
 	return &user, nil
 }
+
+func GetUserById(id string) (*User, error) {
+	var user User
+	err := db.QueryRow(`
+		SELECT id, username, password, email, created_at, updated_at
+		FROM users
+		WHERE id = $1
+	`, id).Scan(
+		&user.ID,
+		&user.Username,
+		&user.Password,
+		&user.Email,
+		&user.CreatedAt,
+		&user.UpdateAt,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
