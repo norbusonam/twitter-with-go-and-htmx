@@ -2,13 +2,21 @@ package templates
 
 import "github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
 
-templ Home(authenticatedUser *db.User) {
+templ Home(authenticatedUser *db.User, posts []*db.Post) {
 	<!DOCTYPE html>
 	<html lang="en">
 		@head("Twitter / Home")
 		<body>
 			@nav(authenticatedUser)
-			<p>Home posts...</p>
+			<form hx-post="/post" hx-target="#posts" hx-swap="afterbegin">
+				<textarea name="content" placeholder="What's up?"></textarea>
+				<button type="submit">Post</button>
+			</form>
+			<div id="posts">
+				for _, post := range posts {
+					@Post(post)
+				}
+			</div>
 		</body>
 	</html>
 }

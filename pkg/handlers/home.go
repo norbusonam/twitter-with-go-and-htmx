@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/labstack/echo/v4"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
 	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/templates"
 )
 
@@ -13,6 +14,9 @@ func HomePage(c echo.Context) error {
 	if user == nil {
 		return c.Redirect(302, "/")
 	}
-
-	return templates.Home(user).Render(c.Request().Context(), c.Response().Writer)
+	posts, err := db.GetPosts()
+	if err != nil {
+		return err
+	}
+	return templates.Home(user, posts).Render(c.Request().Context(), c.Response().Writer)
 }
