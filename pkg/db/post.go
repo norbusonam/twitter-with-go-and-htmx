@@ -53,6 +53,7 @@ func GetPosts() ([]*Post, error) {
 	rows, err := db.Query(`
 		SELECT id, content, user_id, created_at, updated_at
 		FROM posts
+		ORDER BY created_at DESC
 	`)
 	if err != nil {
 		return nil, err
@@ -83,6 +84,7 @@ func GetPostsByUserWithUsername(username string) ([]*Post, error) {
 		FROM posts p
 		INNER JOIN users u ON p.user_id = u.id
 		WHERE u.username = $1
+		ORDER BY p.created_at DESC
 	`, username)
 	if err != nil {
 		return nil, err
