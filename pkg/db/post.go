@@ -76,3 +76,33 @@ func GetPosts() ([]*Post, error) {
 	}
 	return posts, nil
 }
+
+func GetPostsByUserWithUsername(username string) ([]*Post, error) {
+	rows, err := db.Query(`
+		SELECT p.id, p.content, p.user_id, p.created_at, p.updated_at
+		FROM posts p
+		INNER JOIN users u ON p.user_id = u.id
+		WHERE u.username = $1
+	`, username)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var posts []*Post
+	for rows.Next() {
+		var post Post
+		err := rows.Scan(
+			&post.ID,
+			&post.Content,
+			&post.UserID,
+			&post.CreatedAt,
+			&post.UpdateAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+		posts = append(posts, &post)
+	}
+	return posts, nil
+}
