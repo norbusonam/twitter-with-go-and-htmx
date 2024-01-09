@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/templates"
 )
 
 func PostPage(c echo.Context) error {
@@ -14,7 +16,19 @@ func PostPage(c echo.Context) error {
 }
 
 func CreatePost(c echo.Context) error {
-	return c.String(http.StatusNotImplemented, fmt.Sprintf("%s not implemented", c.Path()))
+	content := c.FormValue("content")
+	user, err := getAuthenticatedUser(c.Cookies())
+	if err != nil {
+		return err
+	}
+	if user == nil {
+		return c.Redirect(302, "/")
+	}
+	post, err := db.CreatePost(content, user.ID)
+	if err != nil {
+		return err
+	}
+	return templates.Post(post).Render(c.Request().Context(), c.Response().Writer)
 }
 
 func DeletePost(c echo.Context) error {
