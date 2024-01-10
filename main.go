@@ -16,14 +16,11 @@ func main() {
 	// | Logging Middleware |
 	// +--------------------+
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogMethod: true,
 		LogStatus: true,
 		LogURI:    true,
-		BeforeNextFunc: func(c echo.Context) {
-			c.Set("customValueFromContext", 42)
-		},
 		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
-			value, _ := c.Get("customValueFromContext").(int)
-			fmt.Printf("REQUEST: uri: %v, status: %v, custom-value: %v\n", v.URI, v.Status, value)
+			fmt.Printf("REQUEST: method: %v, uri: %v, status: %v\n", v.Method, v.URI, v.Status)
 			return nil
 		},
 	}))
@@ -62,3 +59,4 @@ func main() {
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
+  
