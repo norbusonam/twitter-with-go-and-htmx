@@ -20,7 +20,11 @@ func UserPage(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	templates.User(user, authenticatedUser).Render(c.Request().Context(), c.Response().Writer)
+	posts, err := db.GetPostsByUser(username)
+	if err != nil {
+		return err
+	}
+	templates.User(user, posts, authenticatedUser).Render(c.Request().Context(), c.Response().Writer)
 	return nil
 }
 
