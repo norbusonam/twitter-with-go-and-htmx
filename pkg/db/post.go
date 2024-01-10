@@ -78,7 +78,7 @@ func GetPosts() ([]*Post, error) {
 	return posts, nil
 }
 
-func GetPostsByUserWithUsername(username string) ([]*Post, error) {
+func GetPostsByUser(username string) ([]*Post, error) {
 	rows, err := db.Query(`
 		SELECT p.id, p.content, p.user_id, p.created_at, p.updated_at
 		FROM posts p
