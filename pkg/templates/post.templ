@@ -1,9 +1,14 @@
 package templates
 
-import "github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
+import (
+	"strconv"
+
+	"github.com/norbusonam/twitter-with-go-and-htmx/pkg/db"
+)
 
 templ Post(post *db.Post) {
 	<div>
 		<p>{ post.Content }</p>
+		<button>❤️ { strconv.Itoa(post.Likes) }</button>
 	</div>
 }
